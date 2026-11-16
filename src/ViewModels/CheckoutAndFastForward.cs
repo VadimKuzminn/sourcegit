@@ -89,6 +89,10 @@ namespace SourceGit.ViewModels
             }
             else
             {
+                // `--force` leaves the changes inside submodules, and they would block updating the submodules afterwards.
+                if (_repo.Submodules.Count > 0)
+                    await Commands.Discard.AllSubmodulesAsync(_repo.FullPath, true, false, false, log);
+
                 succ = await new Commands.Checkout(_repo.FullPath)
                     .Use(log)
                     .BranchAsync(LocalBranch.Name, RemoteBranch.Head, true, true);

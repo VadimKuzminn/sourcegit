@@ -149,6 +149,11 @@ namespace SourceGit.ViewModels
                 }
             }
 
+            // The changes counted above leave out the submodules, and `git reset --hard` does not touch them either. Discard
+            // the changes inside them too, otherwise they stay and block updating the submodules after pull.
+            if (DealWithLocalChanges == Models.DealWithLocalChanges.Discard && _repo.Submodules.Count > 0)
+                await Commands.Discard.AllSubmodulesAsync(_repo.FullPath, true, false, false, log);
+
             bool rs = false;
             if (!token.IsCancellationRequested)
             {
