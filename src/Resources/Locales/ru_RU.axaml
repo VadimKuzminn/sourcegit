@@ -553,36 +553,95 @@
   <x:String x:Key="Text.HistoriesDetailsStandalone" xml:space="preserve">Открыть в отдельном окне</x:String>
   <x:String x:Key="Text.HistoriesDetailsStandalone.CommitDetail" xml:space="preserve">Подробности ревизии</x:String>
   <x:String x:Key="Text.HistoriesDetailsStandalone.RevisionCompare" xml:space="preserve">Сравнить ревизию</x:String>
-  <x:String x:Key="Text.Hotkeys" xml:space="preserve">Справка по сочетаниям клавиш</x:String>
+  <x:String x:Key="Text.Hotkeys" xml:space="preserve">Сочетания клавиш</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff" xml:space="preserve">ПРОСМОТР ИЗМЕНЕНИЙ</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.DiscardChunk" xml:space="preserve">Отменить выбранный блок изменений</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.StageChunk" xml:space="preserve">Сформировать выбранный блок изменений</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.UnstageChunk" xml:space="preserve">Расформировать выбранный блок изменений</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Cancel" xml:space="preserve">Отмена</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Clear" xml:space="preserve">Убрать сочетание</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ClearFindByShortcut" xml:space="preserve">Показать все команды</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ClickToChange" xml:space="preserve">Нажмите, затем введите новое сочетание клавиш</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ConflictAsk" xml:space="preserve">{0} уже назначено команде {1}. Переназначить на {2}?</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Customized" xml:space="preserve">Изменено относительно значения по умолчанию</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.FindByShortcut" xml:space="preserve">Найти команды по сочетанию: нажмите, затем введите сочетание клавиш</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.FindByShortcutTip" xml:space="preserve">Нажмите сочетание клавиш для поиска. ESC — отмена.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.NeedModifier" xml:space="preserve">{0} нельзя использовать как сочетание. Добавьте Ctrl или Alt (⌘ в macOS) или используйте F1-F24.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.None" xml:space="preserve">Нет</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.NothingFound" xml:space="preserve">Ничего не найдено.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.PressKeys" xml:space="preserve">Нажмите клавиши...</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reassign" xml:space="preserve">Переназначить</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.RecordingTip" xml:space="preserve">Нажмите новое сочетание клавиш. ESC — отмена.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reserved" xml:space="preserve">{0} также используется полями ввода и списками, поэтому не сработает, пока фокус в одном из них.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reset" xml:space="preserve">Вернуть значение по умолчанию</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ResetAll" xml:space="preserve">Сбросить все</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Search" xml:space="preserve">Поиск команды или сочетания...</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ShortcutIsFree" xml:space="preserve">{0} не назначено ни одной команде.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Tip" xml:space="preserve">Нажмите на сочетание, чтобы изменить его. Изменения применяются сразу.</x:String>
   <x:String x:Key="Text.Hotkeys.Global" xml:space="preserve">ГЛОБАЛЬНЫЕ</x:String>
   <x:String x:Key="Text.Hotkeys.Global.Clone" xml:space="preserve">Клонировать репозиторий</x:String>
   <x:String x:Key="Text.Hotkeys.Global.CloseTab" xml:space="preserve">Закрыть текущую вкладку</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ConfigureWorkspace" xml:space="preserve">Настроить рабочие пространства</x:String>
   <x:String x:Key="Text.Hotkeys.Global.GotoNextTab" xml:space="preserve">Перейти на следующую вкладку</x:String>
   <x:String x:Key="Text.Hotkeys.Global.GotoPrevTab" xml:space="preserve">Перейти на предыдущую вкладку</x:String>
   <x:String x:Key="Text.Hotkeys.Global.NewTab" xml:space="preserve">Создать новую вкладку</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.OpenHotkeys" xml:space="preserve">Открыть сочетания клавиш</x:String>
   <x:String x:Key="Text.Hotkeys.Global.OpenLocalRepository" xml:space="preserve">Открыть локальный репозиторий</x:String>
   <x:String x:Key="Text.Hotkeys.Global.OpenPreferences" xml:space="preserve">Открыть диалоговое окно настроек</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.OpenTerminal" xml:space="preserve">Открыть терминал</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.Refresh" xml:space="preserve">Перечитать текущий репозиторий или список репозиториев</x:String>
   <x:String x:Key="Text.Hotkeys.Global.ShowWorkspaceDropdownMenu" xml:space="preserve">Показать рабочее пространство в выпадающем меню</x:String>
   <x:String x:Key="Text.Hotkeys.Global.SwitchTab" xml:space="preserve">Переключиться на вкладку</x:String>
   <x:String x:Key="Text.Hotkeys.Global.Zoom" xml:space="preserve">Масштабирование</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomIn" xml:space="preserve">Увеличить масштаб</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomOut" xml:space="preserve">Уменьшить масштаб</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomReset" xml:space="preserve">Сбросить масштаб</x:String>
+  <x:String x:Key="Text.Hotkeys.History" xml:space="preserve">ИСТОРИЯ</x:String>
+  <x:String x:Key="Text.Hotkeys.History.OpenDetailsStandalone" xml:space="preserve">Открыть выбранную ревизию в отдельном окне</x:String>
+  <x:String x:Key="Text.Hotkeys.History.OpenRevisionFile" xml:space="preserve">Открыть выбранный файл ревизии в редакторе по умолчанию</x:String>
+  <x:String x:Key="Text.Hotkeys.LocalChanges" xml:space="preserve">ЛОКАЛЬНЫЕ ИЗМЕНЕНИЯ</x:String>
   <x:String x:Key="Text.Hotkeys.Repo" xml:space="preserve">РЕПОЗИТОРИЙ</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Bisect" xml:space="preserve">Начать раздвоение (bisect)</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Blame" xml:space="preserve">Расследование (blame) файла</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Checkout" xml:space="preserve">Переключить ветку</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Commit" xml:space="preserve">Зафиксировать сформированные изменения</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CommitAndPush" xml:space="preserve">Зафиксировать и выложить сформированные изменения</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CommitWithAutoStage" xml:space="preserve">Сформировать все изменения и зафиксировать</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Compare" xml:space="preserve">Сравнить ветки или метки</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CreateBranch" xml:space="preserve">Создать новую ветку</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateBranchFromSelected" xml:space="preserve">Создать ветку от выбранной ревизии</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateTag" xml:space="preserve">Создать метку на HEAD</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateTagFromSelected" xml:space="preserve">Создать метку на выбранной ревизии</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CustomActions" xml:space="preserve">Выполнить пользовательское действие</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.ExternalTools" xml:space="preserve">Показать меню «Открыть во внешних инструментах»</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Fetch" xml:space="preserve">Извлечь (fetch), запускается сразу</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.FetchWithOptions" xml:space="preserve">Извлечь (fetch), сначала показать параметры</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.FileHistory" xml:space="preserve">История файла</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.FindInHistory" xml:space="preserve">Найти ревизию в истории по SHA, ветке, автору или сообщению</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.GitFlow" xml:space="preserve">Показать меню Git-Flow</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.GitLFS" xml:space="preserve">Показать меню Git LFS</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.GoToChild" xml:space="preserve">К дочернему выбранной ревизии</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.GoToParent" xml:space="preserve">К родительскому выбранной ревизии</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Merge" xml:space="preserve">Влить ветку</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.OpenCommandPalette" xml:space="preserve">Открыть палитру команд</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.OpenFile" xml:space="preserve">Открыть файл</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Pull" xml:space="preserve">Загрузить (pull), запускается сразу</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.PullWithOptions" xml:space="preserve">Загрузить (pull), сначала показать параметры</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Push" xml:space="preserve">Выложить (push), запускается сразу</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.PushWithOptions" xml:space="preserve">Выложить (push), сначала показать параметры</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Refresh" xml:space="preserve">Принудительно перечитать репозиторий</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Stash" xml:space="preserve">Отложить локальные изменения, сначала показать параметры</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.StashDirectly" xml:space="preserve">Отложить локальные изменения, запускается сразу</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ToggleCommitDetailPanel" xml:space="preserve">Развернуть/Свернуть панель подробностей ревизии</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.ToggleFocusOnCurrentBranch" xml:space="preserve">Вкл/выкл «Сосредоточиться на текущей ветке»</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ToggleSearchCommits" xml:space="preserve">Переключить панель поиска ревизий</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewChanges" xml:space="preserve">Переключить на «Изменения»</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewDashboard" xml:space="preserve">Переключить на «Обзор»</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewStashes" xml:space="preserve">Переключить на «Отложенные»</x:String>
+  <x:String x:Key="Text.Hotkeys.Welcome" xml:space="preserve">СТАРТОВАЯ СТРАНИЦА</x:String>
+  <x:String x:Key="Text.Hotkeys.Welcome.Search" xml:space="preserve">Найти репозиторий</x:String>
+  <x:String x:Key="Text.Hotkeys.WorkingCopy.StageAll" xml:space="preserve">Сформировать все изменения</x:String>
+  <x:String x:Key="Text.Hotkeys.WorkingCopy.UnstageAll" xml:space="preserve">Расформировать все изменения</x:String>
   <x:String x:Key="Text.Hunk.Discard" xml:space="preserve">Отклонить</x:String>
   <x:String x:Key="Text.Hunk.Stage" xml:space="preserve">Сформировать</x:String>
   <x:String x:Key="Text.Hunk.Unstage" xml:space="preserve">Расформировать</x:String>

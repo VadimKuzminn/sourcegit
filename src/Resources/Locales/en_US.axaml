@@ -549,36 +549,95 @@
   <x:String x:Key="Text.HistoriesDetailsStandalone" xml:space="preserve">Open in separate window</x:String>
   <x:String x:Key="Text.HistoriesDetailsStandalone.CommitDetail" xml:space="preserve">Commit Detail</x:String>
   <x:String x:Key="Text.HistoriesDetailsStandalone.RevisionCompare" xml:space="preserve">Revision Compare</x:String>
-  <x:String x:Key="Text.Hotkeys" xml:space="preserve">Keyboard Shortcuts Reference</x:String>
+  <x:String x:Key="Text.Hotkeys" xml:space="preserve">Keyboard Shortcuts</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff" xml:space="preserve">DIFF VIEW</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.DiscardChunk" xml:space="preserve">Discard selected chunk</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.StageChunk" xml:space="preserve">Stage selected chunk</x:String>
+  <x:String x:Key="Text.Hotkeys.Diff.UnstageChunk" xml:space="preserve">Unstage selected chunk</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Cancel" xml:space="preserve">Cancel</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Clear" xml:space="preserve">Remove shortcut</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ClearFindByShortcut" xml:space="preserve">Show all commands</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ClickToChange" xml:space="preserve">Click, then press the new key combination</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ConflictAsk" xml:space="preserve">{0} is already assigned to {1}. Reassign it to {2}?</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Customized" xml:space="preserve">Changed from default</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.FindByShortcut" xml:space="preserve">Find commands by shortcut: click, then press the key combination</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.FindByShortcutTip" xml:space="preserve">Press the key combination to find. ESC cancels.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.NeedModifier" xml:space="preserve">{0} can not be used as a shortcut. Combine the key with Ctrl or Alt (⌘ on macOS), or use F1-F24.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.None" xml:space="preserve">None</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.NothingFound" xml:space="preserve">No commands found.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.PressKeys" xml:space="preserve">Press keys...</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reassign" xml:space="preserve">Reassign</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.RecordingTip" xml:space="preserve">Press the new key combination. ESC cancels.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reserved" xml:space="preserve">{0} is also used by text boxes and lists, so it will not work while one of them has focus.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Reset" xml:space="preserve">Reset to default</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ResetAll" xml:space="preserve">Reset All</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Search" xml:space="preserve">Search commands or shortcuts...</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.ShortcutIsFree" xml:space="preserve">{0} is not used by any command.</x:String>
+  <x:String x:Key="Text.Hotkeys.Editor.Tip" xml:space="preserve">Click a shortcut to change it. Changes apply immediately.</x:String>
   <x:String x:Key="Text.Hotkeys.Global" xml:space="preserve">GLOBAL</x:String>
   <x:String x:Key="Text.Hotkeys.Global.Clone" xml:space="preserve">Clone remote repository</x:String>
   <x:String x:Key="Text.Hotkeys.Global.CloseTab" xml:space="preserve">Close current tab</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ConfigureWorkspace" xml:space="preserve">Configure workspaces</x:String>
   <x:String x:Key="Text.Hotkeys.Global.GotoNextTab" xml:space="preserve">Go to next tab</x:String>
   <x:String x:Key="Text.Hotkeys.Global.GotoPrevTab" xml:space="preserve">Go to previous tab</x:String>
   <x:String x:Key="Text.Hotkeys.Global.NewTab" xml:space="preserve">Create new tab</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.OpenHotkeys" xml:space="preserve">Open keyboard shortcuts</x:String>
   <x:String x:Key="Text.Hotkeys.Global.OpenLocalRepository" xml:space="preserve">Open local repository</x:String>
   <x:String x:Key="Text.Hotkeys.Global.OpenPreferences" xml:space="preserve">Open Preferences dialog</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.OpenTerminal" xml:space="preserve">Open terminal</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.Refresh" xml:space="preserve">Reload current repository or repository list</x:String>
   <x:String x:Key="Text.Hotkeys.Global.ShowWorkspaceDropdownMenu" xml:space="preserve">Show workspace dropdown menu</x:String>
   <x:String x:Key="Text.Hotkeys.Global.SwitchTab" xml:space="preserve">Switch active tab</x:String>
   <x:String x:Key="Text.Hotkeys.Global.Zoom" xml:space="preserve">Zoom in/out</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomIn" xml:space="preserve">Zoom in</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomOut" xml:space="preserve">Zoom out</x:String>
+  <x:String x:Key="Text.Hotkeys.Global.ZoomReset" xml:space="preserve">Reset zoom</x:String>
+  <x:String x:Key="Text.Hotkeys.History" xml:space="preserve">HISTORY</x:String>
+  <x:String x:Key="Text.Hotkeys.History.OpenDetailsStandalone" xml:space="preserve">Open selected commit in a separate window</x:String>
+  <x:String x:Key="Text.Hotkeys.History.OpenRevisionFile" xml:space="preserve">Open selected revision file with default editor</x:String>
+  <x:String x:Key="Text.Hotkeys.LocalChanges" xml:space="preserve">LOCAL CHANGES</x:String>
   <x:String x:Key="Text.Hotkeys.Repo" xml:space="preserve">REPOSITORY</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Bisect" xml:space="preserve">Start bisect</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Blame" xml:space="preserve">Blame a file</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Checkout" xml:space="preserve">Checkout branch</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Commit" xml:space="preserve">Commit staged changes</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CommitAndPush" xml:space="preserve">Commit and push staged changes</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CommitWithAutoStage" xml:space="preserve">Stage all changes and commit</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Compare" xml:space="preserve">Compare branches or tags</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.CreateBranch" xml:space="preserve">Create new branch</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateBranchFromSelected" xml:space="preserve">Create branch from selected commit</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateTag" xml:space="preserve">Create tag at HEAD</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CreateTagFromSelected" xml:space="preserve">Create tag at selected commit</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.CustomActions" xml:space="preserve">Run custom action</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.ExternalTools" xml:space="preserve">Show 'Open in External Tools' menu</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Fetch" xml:space="preserve">Fetch, starts directly</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.FetchWithOptions" xml:space="preserve">Fetch, shows options first</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.FileHistory" xml:space="preserve">File history</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.FindInHistory" xml:space="preserve">Find commit in history by SHA, branch, author or message</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.GitFlow" xml:space="preserve">Show Git-Flow menu</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.GitLFS" xml:space="preserve">Show Git LFS menu</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.GoToChild" xml:space="preserve">Goto child of selected commit</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.GoToParent" xml:space="preserve">Goto parent of selected commit</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Merge" xml:space="preserve">Merge branch</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.OpenCommandPalette" xml:space="preserve">Open command palette</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.OpenFile" xml:space="preserve">Open file</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Pull" xml:space="preserve">Pull, starts directly</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.PullWithOptions" xml:space="preserve">Pull, shows options first</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Push" xml:space="preserve">Push, starts directly</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.PushWithOptions" xml:space="preserve">Push, shows options first</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.Refresh" xml:space="preserve">Force to reload this repository</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.Stash" xml:space="preserve">Stash local changes, shows options first</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.StashDirectly" xml:space="preserve">Stash local changes, starts directly</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ToggleCommitDetailPanel" xml:space="preserve">Expand/Collapse commit details panel</x:String>
+  <x:String x:Key="Text.Hotkeys.Repo.ToggleFocusOnCurrentBranch" xml:space="preserve">Toggle 'Focus on Current Branch'</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ToggleSearchCommits" xml:space="preserve">Toggle commit search panel</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewChanges" xml:space="preserve">Switch to 'Local Changes'</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewDashboard" xml:space="preserve">Switch to 'Dashboard'</x:String>
   <x:String x:Key="Text.Hotkeys.Repo.ViewStashes" xml:space="preserve">Switch to 'Stashes'</x:String>
+  <x:String x:Key="Text.Hotkeys.Welcome" xml:space="preserve">WELCOME PAGE</x:String>
+  <x:String x:Key="Text.Hotkeys.Welcome.Search" xml:space="preserve">Search repositories</x:String>
+  <x:String x:Key="Text.Hotkeys.WorkingCopy.StageAll" xml:space="preserve">Stage all changes</x:String>
+  <x:String x:Key="Text.Hotkeys.WorkingCopy.UnstageAll" xml:space="preserve">Unstage all changes</x:String>
   <x:String x:Key="Text.Hunk.Discard" xml:space="preserve">Discard</x:String>
   <x:String x:Key="Text.Hunk.Stage" xml:space="preserve">Stage</x:String>
   <x:String x:Key="Text.Hunk.Unstage" xml:space="preserve">Unstage</x:String>

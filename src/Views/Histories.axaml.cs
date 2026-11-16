@@ -213,20 +213,18 @@ namespace SourceGit.Views
 
         protected override async void OnKeyDown(KeyEventArgs e)
         {
-            if (e.KeyModifiers == KeyModifiers.Alt)
+            var hotkeys = ViewModels.HotkeyManager.Instance;
+            if (hotkeys.Matches("History.GotoChild", e))
             {
-                if (e.Key == Key.Up)
-                {
-                    e.Handled = true;
-                    if (this.FindAncestorOfType<Histories>() is { } histories)
-                        await histories.GotoChild();
-                }
-                else if (e.Key == Key.Down)
-                {
-                    e.Handled = true;
-                    if (this.FindAncestorOfType<Histories>() is { } histories)
-                        await histories.GotoParent();
-                }
+                e.Handled = true;
+                if (this.FindAncestorOfType<Histories>() is { } histories)
+                    await histories.GotoChild();
+            }
+            else if (hotkeys.Matches("History.GotoParent", e))
+            {
+                e.Handled = true;
+                if (this.FindAncestorOfType<Histories>() is { } histories)
+                    await histories.GotoParent();
             }
             else if (e.KeyModifiers.HasFlag(OperatingSystem.IsMacOS() ? KeyModifiers.Meta : KeyModifiers.Control) &&
                 SelectedItems is { Count: > 0 } selected &&
@@ -1185,7 +1183,7 @@ namespace SourceGit.Views
             var createBranch = new MenuItem();
             createBranch.Icon = this.CreateMenuIcon("Icons.Branch.Add");
             createBranch.Header = App.Text("CreateBranch");
-            createBranch.Tag = OperatingSystem.IsMacOS() ? "⌘+⇧+B" : "Ctrl+Shift+B";
+            createBranch.Tag = ViewModels.HotkeyManager.Instance.GetText("Repo.NewBranchFromSelected");
             createBranch.Click += (_, e) =>
             {
                 if (repo.CanCreatePopup())
@@ -1197,7 +1195,7 @@ namespace SourceGit.Views
             var createTag = new MenuItem();
             createTag.Icon = this.CreateMenuIcon("Icons.Tag.Add");
             createTag.Header = App.Text("CreateTag");
-            createTag.Tag = OperatingSystem.IsMacOS() ? "⌘+⇧+T" : "Ctrl+Shift+T";
+            createTag.Tag = ViewModels.HotkeyManager.Instance.GetText("Repo.NewTagFromSelected");
             createTag.Click += (_, e) =>
             {
                 if (repo.CanCreatePopup())

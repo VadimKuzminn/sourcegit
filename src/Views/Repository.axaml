@@ -56,7 +56,7 @@
             <TextBlock>
               <Run Text="{DynamicResource Text.Dashboard}" Foreground="{DynamicResource Brush.FG1}"/>
               <Run Text=" "/>
-              <Run Text="{OnPlatform Ctrl+1, macOS=⌘+1}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
+              <Run Text="{v:HotkeyText Repo.ViewHistories}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
             </TextBlock>
           </ToolTip.Tip>
           <Path Classes="icon" Data="{StaticResource Icons.Dashboard}"/>
@@ -67,7 +67,7 @@
             <TextBlock>
               <Run Text="{DynamicResource Text.WorkingCopy}" Foreground="{DynamicResource Brush.FG1}"/>
               <Run Text=" "/>
-              <Run Text="{OnPlatform Ctrl+2, macOS=⌘+2}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
+              <Run Text="{v:HotkeyText Repo.ViewChanges}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
             </TextBlock>
           </ToolTip.Tip>
           <Grid>
@@ -97,7 +97,7 @@
             <TextBlock>
               <Run Text="{DynamicResource Text.Stashes}" Foreground="{DynamicResource Brush.FG1}"/>
               <Run Text=" "/>
-              <Run Text="{OnPlatform Ctrl+3, macOS=⌘+3}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
+              <Run Text="{v:HotkeyText Repo.ViewStashes}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
             </TextBlock>
           </ToolTip.Tip>
           <Grid>
@@ -307,7 +307,7 @@
                   <TextBlock>
                     <Run Text="{DynamicResource Text.Repository.Search.ToolTip}" Foreground="{DynamicResource Brush.FG1}"/>
                     <Run Text=" "/>
-                    <Run Text="{OnPlatform Ctrl+Shift+F, macOS=⌘+⇧+F}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
+                    <Run Text="{v:HotkeyText Repo.ToggleSearchCommits}" FontSize="11" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
                   </TextBlock>
                 </ToolTip.Tip>
                 <Path Width="12" Height="12" Stretch="Fill" HorizontalAlignment="Center" Data="{StaticResource Icons.Search}"/>

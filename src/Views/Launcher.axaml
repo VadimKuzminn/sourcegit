@@ -44,12 +44,12 @@
       <Button Grid.Column="0" Classes="icon_button" VerticalAlignment="Bottom" Margin="6,0,0,3" IsVisible="{OnPlatform True, macOS=False}">
         <Button.Flyout>
           <MenuFlyout Placement="BottomEdgeAlignedLeft" VerticalOffset="-6">
-            <MenuItem Header="{DynamicResource Text.Preferences}" Command="{x:Static s:App.OpenPreferencesCommand}" InputGesture="Ctrl+,">
+            <MenuItem Header="{DynamicResource Text.Preferences}" Command="{x:Static s:App.OpenPreferencesCommand}" InputGesture="{v:Hotkey Global.OpenPreferences}">
               <MenuItem.Icon>
                 <Path Width="14" Height="14" Data="{StaticResource Icons.Settings}"/>
               </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Text.Hotkeys}" Command="{x:Static s:App.OpenHotkeysCommand}" InputGesture="F1">
+            <MenuItem Header="{DynamicResource Text.Hotkeys}" Command="{x:Static s:App.OpenHotkeysCommand}" InputGesture="{v:Hotkey Global.OpenHotkeys}">
               <MenuItem.Icon>
                 <Path Width="14" Height="14" Data="{StaticResource Icons.Hotkeys}"/>
               </MenuItem.Icon>
@@ -84,7 +84,7 @@
                 <Path Width="14" Height="14" Data="{StaticResource Icons.Info}"/>
               </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="{DynamicResource Text.Quit}" Command="{x:Static s:App.QuitCommand}" InputGesture="Ctrl+Q">
+            <MenuItem Header="{DynamicResource Text.Quit}" Command="{x:Static s:App.QuitCommand}" InputGesture="{v:Hotkey Global.Quit}">
               <MenuItem.Icon>
                 <Path Width="14" Height="14" Data="{StaticResource Icons.Quit}"/>
               </MenuItem.Icon>
@@ -95,13 +95,13 @@
       </Button>
 
       <!-- Workspace Dropdown Menu -->
-      <Button Grid.Column="1" Classes="icon_button" VerticalAlignment="Bottom" Margin="0,0,0,1" Click="OnOpenWorkspaceMenu" HotKey="{OnPlatform Ctrl+Alt+P, macOS=⌘+Alt+P}">
+      <Button Grid.Column="1" Classes="icon_button" VerticalAlignment="Bottom" Margin="0,0,0,1" Click="OnOpenWorkspaceMenu" HotKey="{v:Hotkey Global.ShowWorkspaceMenu}">
         <ToolTip.Tip>
           <StackPanel Orientation="Horizontal">
             <TextBlock Text="{DynamicResource Text.Workspace}" FontWeight="Bold" Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"/>
             <TextBlock Text="{Binding ActiveWorkspace.Name}"/>
             <TextBlock Margin="16,0,0,0"
-                       Text="{OnPlatform Ctrl+Alt+P, macOS=⌘+Alt+P}"
+                       Text="{v:HotkeyText Global.ShowWorkspaceMenu}"
                        FontSize="11"
                        Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"
                        VerticalAlignment="Center"/>
@@ -113,13 +113,13 @@
       </Button>
 
       <!-- Pages Switcher Toggle Button -->
-      <Button Grid.Column="2" Classes="icon_button" VerticalAlignment="Bottom" Margin="0,0,0,1" Click="OnOpenPagesCommandPalette" HotKey="{OnPlatform Ctrl+P, macOS=⌘+P}">
+      <Button Grid.Column="2" Classes="icon_button" VerticalAlignment="Bottom" Margin="0,0,0,1" Click="OnOpenPagesCommandPalette" HotKey="{v:Hotkey Global.SwitchTab}">
         <ToolTip.Tip>
           <StackPanel Orientation="Horizontal">
             <TextBlock Text="{DynamicResource Text.Launcher.Pages}"
                        VerticalAlignment="Center"/>
             <TextBlock Margin="8,0,0,0"
-                       Text="{OnPlatform Ctrl+P, macOS=⌘+P}"
+                       Text="{v:HotkeyText Global.SwitchTab}"
                        FontSize="11"
                        Foreground="{DynamicResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"
                        VerticalAlignment="Center"/>

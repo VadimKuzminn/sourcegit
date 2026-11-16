@@ -1,8 +1,6 @@
-﻿using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.VisualTree;
 
@@ -17,14 +15,16 @@ namespace SourceGit.Views
 
         public void ToggleHotkeyBindings(bool enabled)
         {
-            var isMacOS = OperatingSystem.IsMacOS();
+            _isHotkeyBindingsEnabled = enabled;
+
             if (enabled)
             {
-                BtnGotoFirstChange.HotKey = KeyGesture.Parse(isMacOS ? "Cmd+Alt+Home" : "Ctrl+Alt+Home");
-                BtnGotoPrevChange.HotKey = KeyGesture.Parse(isMacOS ? "Cmd+Alt+Up" : "Ctrl+Alt+Up");
-                BtnGotoNextChange.HotKey = KeyGesture.Parse(isMacOS ? "Cmd+Alt+Down" : "Ctrl+Alt+Down");
-                BtnGotoLastChange.HotKey = KeyGesture.Parse(isMacOS ? "Cmd+Alt+End" : "Ctrl+Alt+End");
-                BtnOpenExternalMergeTool.HotKey = KeyGesture.Parse(isMacOS ? "Cmd+Shift+D" : "Ctrl+Shift+D");
+                var hotkeys = ViewModels.HotkeyManager.Instance;
+                BtnGotoFirstChange.HotKey = hotkeys.Get("Diff.GotoFirstChange");
+                BtnGotoPrevChange.HotKey = hotkeys.Get("Diff.GotoPrevChange");
+                BtnGotoNextChange.HotKey = hotkeys.Get("Diff.GotoNextChange");
+                BtnGotoLastChange.HotKey = hotkeys.Get("Diff.GotoLastChange");
+                BtnOpenExternalMergeTool.HotKey = hotkeys.Get("Diff.OpenExternalMergeTool");
             }
             else
             {
@@ -44,12 +44,20 @@ namespace SourceGit.Views
                 vm.CheckSettings();
 
             ToggleHotkeyBindings(IsEffectivelyVisible);
+            ViewModels.HotkeyManager.Instance.Changed += OnHotkeysChanged;
         }
 
         protected override void OnUnloaded(RoutedEventArgs e)
         {
             base.OnUnloaded(e);
+            ViewModels.HotkeyManager.Instance.Changed -= OnHotkeysChanged;
             ToggleHotkeyBindings(false);
+        }
+
+        private void OnHotkeysChanged()
+        {
+            if (_isHotkeyBindingsEnabled)
+                ToggleHotkeyBindings(true);
         }
 
         private void OnGotoFirstChange(object _, RoutedEventArgs e)
@@ -111,5 +119,7 @@ namespace SourceGit.Views
                 e.Handled = true;
             }
         }
+
+        private bool _isHotkeyBindingsEnabled = false;
     }
 }

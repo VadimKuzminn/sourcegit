@@ -91,7 +91,7 @@ namespace SourceGit.Converters
             new FuncValueConverter<string, string>(v => v is { Length: > 13 } ? v.Substring(13) : string.Empty);
 
         public static readonly FuncValueConverter<KeyGesture, string> FromKeyGesture =
-            new FuncValueConverter<KeyGesture, string>(v => v?.ToString("p", null) ?? string.Empty);
+            new FuncValueConverter<KeyGesture, string>(Models.HotkeyGesture.Format);
 
         public class ToWindowTitleConverter : IMultiValueConverter
         {

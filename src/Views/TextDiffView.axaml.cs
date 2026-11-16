@@ -1557,7 +1557,7 @@ namespace SourceGit.Views
             {
                 if (SelectedChunk is { } chunk)
                 {
-                    var syscmd = OperatingSystem.IsMacOS() ? "Cmd" : "Ctrl";
+                    var hotkeys = ViewModels.HotkeyManager.Instance;
                     var top = chunk.Y + 4;
                     var right = 28.0;
                     if (!chunk.Combined && chunk.IsOldSide)
@@ -1568,9 +1568,9 @@ namespace SourceGit.Views
 
                     Popup.Margin = new Thickness(0, top, right, 0);
                     Popup.IsVisible = true;
-                    BtnStageChunk.HotKey = KeyGesture.Parse($"{syscmd}+S");
-                    BtnUnstageChunk.HotKey = KeyGesture.Parse($"{syscmd}+U");
-                    BtnDiscardChunk.HotKey = KeyGesture.Parse($"{syscmd}+D");
+                    BtnStageChunk.HotKey = hotkeys.Get("Diff.StageChunk");
+                    BtnUnstageChunk.HotKey = hotkeys.Get("Diff.UnstageChunk");
+                    BtnDiscardChunk.HotKey = hotkeys.Get("Diff.DiscardChunk");
                 }
                 else
                 {
