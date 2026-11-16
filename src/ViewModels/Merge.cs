@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 
@@ -58,9 +59,12 @@ namespace SourceGit.ViewModels
             _repo = repo;
             _sourceName = source.FriendlyName;
 
+            _rememberMode = !forceFastForward;
+
             Source = source;
             Into = into;
             Mode = forceFastForward ? Models.MergeMode.FastForward : AutoSelectMergeMode();
+            _initialMode = Mode;
 
             if (!forceFastForward)
                 Test();
@@ -74,6 +78,7 @@ namespace SourceGit.ViewModels
             Source = source;
             Into = into;
             Mode = AutoSelectMergeMode();
+            _initialMode = Mode;
 
             Test();
         }
@@ -86,6 +91,7 @@ namespace SourceGit.ViewModels
             Source = source;
             Into = into;
             Mode = AutoSelectMergeMode();
+            _initialMode = Mode;
 
             Test();
         }
@@ -94,6 +100,7 @@ namespace SourceGit.ViewModels
         {
             using var lockWatcher = _repo.LockWatcher();
             _repo.ClearCommitMessage();
+            RememberMergeMode();
             ProgressDescription = $"Merging '{_sourceName}' into '{Into}' ...";
 
             var log = _repo.CreateLog($"Merging '{_sourceName}' into '{Into}'");
@@ -142,10 +149,26 @@ namespace SourceGit.ViewModels
                 return mode;
 
             var preferredMergeModeIdx = _repo.Settings.PreferredMergeMode;
-            if (preferredMergeModeIdx < 0 || preferredMergeModeIdx > Models.MergeMode.Supported.Length)
+            if (preferredMergeModeIdx < 0 || preferredMergeModeIdx >= Models.MergeMode.Supported.Length)
                 return Models.MergeMode.Default;
 
             return Models.MergeMode.Supported[preferredMergeModeIdx];
+        }
+
+        // The last mode picked by hand becomes the repository's preferred merge mode, so the next merge starts
+        // from it. A mode that only came from `branch.<name>.mergeoptions` and was left as is, or the forced
+        // fast-forward of "Fast-Forward to ...", is not a choice and must not overwrite the preference.
+        private void RememberMergeMode()
+        {
+            if (!_rememberMode || Mode == _initialMode)
+                return;
+
+            var idx = Array.IndexOf(Models.MergeMode.Supported, Mode);
+            if (idx < 0 || _repo.Settings.PreferredMergeMode == idx)
+                return;
+
+            _repo.Settings.PreferredMergeMode = idx;
+            _repo.Settings.Save();
         }
 
         private void Test()
@@ -173,6 +196,8 @@ namespace SourceGit.ViewModels
         private readonly Repository _repo = null;
         private readonly string _sourceName;
         private Models.MergeMode _mode = Models.MergeMode.Default;
+        private Models.MergeMode _initialMode = null;
+        private bool _rememberMode = true;
         private bool _canEditMessage = true;
         private MergeTestingState _testingState = MergeTestingState.Disabled;
     }

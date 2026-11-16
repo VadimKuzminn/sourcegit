@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SourceGit.ViewModels
@@ -27,7 +28,7 @@ namespace SourceGit.ViewModels
             _repo = repo;
             Targets.AddRange(commits);
             AutoCommit = true;
-            Strategy = Models.MergeStrategy.ForMultiple[0];
+            Strategy = GetLastStrategy();
         }
 
         public MergeMultiple(Repository repo, List<Models.Branch> branches)
@@ -35,13 +36,14 @@ namespace SourceGit.ViewModels
             _repo = repo;
             Targets.AddRange(branches);
             AutoCommit = true;
-            Strategy = Models.MergeStrategy.ForMultiple[0];
+            Strategy = GetLastStrategy();
         }
 
         public override async Task<bool> Sure()
         {
             using var lockWatcher = _repo.LockWatcher();
             _repo.ClearCommitMessage();
+            _repo.UIStates.LastMergeMultipleStrategy = Math.Max(0, Models.MergeStrategy.ForMultiple.IndexOf(Strategy));
             ProgressDescription = "Merge head(s) ...";
 
             var log = _repo.CreateLog("Merge Multiple Heads");
@@ -83,6 +85,13 @@ namespace SourceGit.ViewModels
             }
 
             return ret;
+        }
+
+        private Models.MergeStrategy GetLastStrategy()
+        {
+            var strategies = Models.MergeStrategy.ForMultiple;
+            var idx = _repo.UIStates.LastMergeMultipleStrategy;
+            return idx >= 0 && idx < strategies.Count ? strategies[idx] : strategies[0];
         }
 
         private readonly Repository _repo = null;

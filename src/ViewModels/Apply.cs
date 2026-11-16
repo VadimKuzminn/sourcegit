@@ -62,7 +62,10 @@ namespace SourceGit.ViewModels
         public Apply(Repository repo)
         {
             _repo = repo;
-            SelectedWhiteSpaceMode = Models.ApplyWhiteSpaceMode.Supported[0];
+
+            var modes = Models.ApplyWhiteSpaceMode.Supported;
+            var idx = repo.UIStates.LastApplyWhiteSpaceMode;
+            SelectedWhiteSpaceMode = idx >= 0 && idx < modes.Length ? modes[idx] : modes[0];
         }
 
         public static ValidationResult ValidatePatchFile(string file, ValidationContext ctx)
@@ -96,6 +99,10 @@ namespace SourceGit.ViewModels
         {
             using var lockWatcher = _repo.LockWatcher();
             ProgressDescription = "Apply patch...";
+
+            var whiteSpaceModeIdx = Array.IndexOf(Models.ApplyWhiteSpaceMode.Supported, SelectedWhiteSpaceMode);
+            if (whiteSpaceModeIdx >= 0)
+                _repo.UIStates.LastApplyWhiteSpaceMode = whiteSpaceModeIdx;
 
             var finalPatchFile = _patchFile;
             if (_fromClipboard)
