@@ -183,6 +183,24 @@ namespace SourceGit.Models
             set;
         } = 0;
 
+        public int LastMergeMultipleStrategy
+        {
+            get;
+            set;
+        } = 0;
+
+        public int LastResetMode
+        {
+            get;
+            set;
+        } = 1;
+
+        public int LastApplyWhiteSpaceMode
+        {
+            get;
+            set;
+        } = 0;
+
         public bool IsLocalBranchesExpandedInSideBar
         {
             get;

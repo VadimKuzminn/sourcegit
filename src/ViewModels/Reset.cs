@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace SourceGit.ViewModels
 {
@@ -25,12 +26,23 @@ namespace SourceGit.ViewModels
             _repo = repo;
             Current = current;
             To = to;
-            SelectedMode = Models.ResetMode.Supported[1];
+
+            // `--hard` is never remembered (see Sure), so a stored index can never preselect it.
+            var modes = Models.ResetMode.Supported;
+            var idx = repo.UIStates.LastResetMode;
+            SelectedMode = idx >= 0 && idx < modes.Length && modes[idx].Arg != "--hard" ? modes[idx] : modes[1];
         }
 
         public override async Task<bool> Sure()
         {
             using var lockWatcher = _repo.LockWatcher();
+
+            // Remember the picked mode for the next reset, except `--hard`: preselecting it would make
+            // an accidental confirm throw away uncommitted work.
+            var idx = Array.IndexOf(Models.ResetMode.Supported, SelectedMode);
+            if (idx >= 0 && SelectedMode.Arg != "--hard")
+                _repo.UIStates.LastResetMode = idx;
+
             ProgressDescription = $"Reset current branch to {To.SHA} ...";
 
             var log = _repo.CreateLog($"Reset HEAD to '{To.SHA}'");
