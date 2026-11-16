@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -18,6 +17,47 @@ namespace SourceGit.Views
             InitializeComponent();
         }
 
+        /// <summary>
+        ///     Runs a repository command bound to a hotkey (see `ViewModels.HotkeyManager`) exactly like the
+        ///     corresponding toolbar button does. Menus open below their buttons.
+        /// </summary>
+        public bool RunHotkey(string id)
+        {
+            var e = new RoutedEventArgs();
+            switch (id)
+            {
+                case "Repo.ExternalTools":
+                    OpenWithExternalTools(BtnExternalTools, e);
+                    return true;
+                case "Repo.GitFlow" when BtnGitFlow.IsVisible:
+                    OpenGitFlowMenu(BtnGitFlow, e);
+                    return true;
+                case "Repo.GitLFS" when BtnGitLFS.IsVisible:
+                    OpenGitLFSMenu(BtnGitLFS, e);
+                    return true;
+                case "Repo.Bisect" when BtnBisect.IsVisible:
+                    StartBisect(BtnBisect, e);
+                    return true;
+                case "Repo.Cleanup":
+                    Cleanup(this, e);
+                    return true;
+                case "Repo.ViewLogs":
+                    OpenGitLogs(this, e);
+                    return true;
+                case "Repo.Statistics":
+                    OpenStatistics(this, e);
+                    return true;
+                case "Repo.Configure":
+                    OpenConfigure(this, e);
+                    return true;
+                case "Repo.NavigateToHead":
+                    NavigateToHead(this, e);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         private void OpenWithExternalTools(object sender, RoutedEventArgs ev)
         {
             if (sender is Button button && DataContext is ViewModels.Repository repo)
@@ -26,7 +66,6 @@ namespace SourceGit.Views
                 if (!Directory.Exists(fullpath))
                     return;
 
-                var isMacOS = OperatingSystem.IsMacOS();
                 var menu = new ContextMenu();
                 menu.Placement = PlacementMode.BottomEdgeAlignedLeft;
 
@@ -37,7 +76,7 @@ namespace SourceGit.Views
                 var explore = new MenuItem();
                 explore.Header = App.Text("Repository.Explore");
                 explore.Icon = this.CreateMenuIcon("Icons.Explore");
-                explore.Tag = isMacOS ? "⌘+E" : "Ctrl+E";
+                explore.Tag = ViewModels.HotkeyManager.Instance.GetText("Repo.Explore");
                 explore.Click += (_, e) =>
                 {
                     Native.OS.OpenInFileManager(fullpath);
@@ -47,7 +86,7 @@ namespace SourceGit.Views
                 var terminal = new MenuItem();
                 terminal.Header = App.Text("Repository.Terminal");
                 terminal.Icon = this.CreateMenuIcon("Icons.Terminal");
-                terminal.Tag = isMacOS ? "Λ+`" : "Ctrl+`";
+                terminal.Tag = ViewModels.HotkeyManager.Instance.GetText("Global.OpenTerminal");
                 terminal.Click += (_, e) =>
                 {
                     Native.OS.OpenTerminal(fullpath);
@@ -180,18 +219,6 @@ namespace SourceGit.Views
             }
         }
 
-        private async void FetchDirectlyByHotKey(object sender, RoutedEventArgs e)
-        {
-            if (App.GetLauncher() is { CommandPalette: { } } launcher)
-                return;
-
-            if (DataContext is ViewModels.Repository repo)
-            {
-                await repo.FetchAsync(true);
-                e.Handled = true;
-            }
-        }
-
         private async void Pull(object sender, TappedEventArgs e)
         {
             if (DataContext is ViewModels.Repository repo)
@@ -201,35 +228,11 @@ namespace SourceGit.Views
             }
         }
 
-        private async void PullDirectlyByHotKey(object sender, RoutedEventArgs e)
-        {
-            if (App.GetLauncher() is { CommandPalette: { } } launcher)
-                return;
-
-            if (DataContext is ViewModels.Repository repo)
-            {
-                await repo.PullAsync(true);
-                e.Handled = true;
-            }
-        }
-
         private async void Push(object sender, TappedEventArgs e)
         {
             if (DataContext is ViewModels.Repository repo)
             {
                 await repo.PushAsync(e.KeyModifiers is KeyModifiers.Control);
-                e.Handled = true;
-            }
-        }
-
-        private async void PushDirectlyByHotKey(object sender, RoutedEventArgs e)
-        {
-            if (App.GetLauncher() is { CommandPalette: { } } launcher)
-                return;
-
-            if (DataContext is ViewModels.Repository repo)
-            {
-                await repo.PushAsync(true);
                 e.Handled = true;
             }
         }

@@ -69,7 +69,7 @@ namespace SourceGit.Views
                         var openWithMerger = new MenuItem();
                         openWithMerger.Header = App.Text("OpenInExternalMergeTool");
                         openWithMerger.Icon = this.CreateMenuIcon("Icons.OpenWith");
-                        openWithMerger.Tag = OperatingSystem.IsMacOS() ? "⌘+⇧+D" : "Ctrl+Shift+D";
+                        openWithMerger.Tag = ViewModels.HotkeyManager.Instance.GetText("Diff.OpenExternalMergeTool");
                         openWithMerger.Click += (_, ev) =>
                         {
                             vm.OpenInExternalDiffTool(change);

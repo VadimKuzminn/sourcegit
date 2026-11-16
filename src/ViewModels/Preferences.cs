@@ -474,6 +474,15 @@ namespace SourceGit.ViewModels
             set;
         } = [];
 
+        /// <summary>
+        ///     User-defined hotkeys (command id => gesture, empty string = no hotkey). See `HotkeyManager`.
+        /// </summary>
+        public Dictionary<string, string> Hotkeys
+        {
+            get;
+            set;
+        } = [];
+
         public double LastCheckUpdateTime
         {
             get => _lastCheckUpdateTime;

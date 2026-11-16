@@ -350,7 +350,7 @@ namespace SourceGit.Views
                     var explore = new MenuItem();
                     explore.Header = App.Text("Repository.Explore");
                     explore.Icon = this.CreateMenuIcon("Icons.Explore");
-                    explore.Tag = OperatingSystem.IsMacOS() ? "⌘+E" : "Ctrl+E";
+                    explore.Tag = ViewModels.HotkeyManager.Instance.GetText("Repo.Explore");
                     explore.Click += (_, e) =>
                     {
                         Native.OS.OpenInFileManager(repo.FullPath);
@@ -429,7 +429,7 @@ namespace SourceGit.Views
 
                 var close = new MenuItem();
                 close.Header = App.Text("PageTabBar.Tab.Close");
-                close.Tag = OperatingSystem.IsMacOS() ? "⌘+W" : "Ctrl+W";
+                close.Tag = ViewModels.HotkeyManager.Instance.GetText("Global.CloseTab");
                 close.Click += (_, ev) =>
                 {
                     vm.CloseTab(page);

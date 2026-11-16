@@ -114,25 +114,29 @@ namespace SourceGit.Views
                 return;
             }
 
-            if (e.KeyModifiers == (OperatingSystem.IsMacOS() ? KeyModifiers.Meta : KeyModifiers.Control))
+            var hotkeys = ViewModels.HotkeyManager.Instance;
+            if (hotkeys.Matches("Global.ZoomIn", e))
             {
-                if (e.Key == Key.OemPlus)
-                {
-                    var zoom = Math.Min(ViewModels.Preferences.Instance.Zoom + 0.05, 2.5);
-                    ViewModels.Preferences.Instance.Zoom = zoom;
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.OemMinus)
-                {
-                    var zoom = Math.Max(ViewModels.Preferences.Instance.Zoom - 0.05, 1);
-                    ViewModels.Preferences.Instance.Zoom = zoom;
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.W)
-                {
-                    Close();
-                    e.Handled = true;
-                }
+                var zoom = Math.Min(ViewModels.Preferences.Instance.Zoom + 0.05, 2.5);
+                ViewModels.Preferences.Instance.Zoom = zoom;
+                e.Handled = true;
+            }
+            else if (hotkeys.Matches("Global.ZoomOut", e))
+            {
+                var zoom = Math.Max(ViewModels.Preferences.Instance.Zoom - 0.05, 1);
+                ViewModels.Preferences.Instance.Zoom = zoom;
+                e.Handled = true;
+            }
+            else if (hotkeys.Matches("Global.ZoomReset", e))
+            {
+                ViewModels.Preferences.Instance.Zoom = 1;
+                e.Handled = true;
+            }
+            else if (this is not SourceGit.Views.Launcher && hotkeys.Matches("Global.CloseTab", e))
+            {
+                // Same gesture that closes a tab in the main window closes this window.
+                Close();
+                e.Handled = true;
             }
         }
 
