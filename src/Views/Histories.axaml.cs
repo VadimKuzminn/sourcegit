@@ -901,7 +901,7 @@ namespace SourceGit.Views
             else if (selected.Count == 1)
             {
                 var menu = CreateContextMenuForSingleCommit(repo, commits[0]);
-                menu.Open(CommitListContainer);
+                menu?.Open(CommitListContainer);
             }
 
             e.Handled = true;
@@ -1155,7 +1155,14 @@ namespace SourceGit.Views
                             break;
                         case Models.DecoratorType.LocalBranchHead:
                             var lb = repo.Branches.Find(x => x.IsLocal && d.Name.Equals(x.Name, StringComparison.Ordinal));
-                            FillOtherLocalBranchMenu(menu, repo, lb, current, commit.IsMerged);
+                            if (lb == null)
+                                break;
+
+                            // Git doesn't emit `HEAD -> branch` when HEAD's ref differs only by case from the stored ref.
+                            if (lb == current)
+                                FillCurrentBranchMenu(menu, repo, current);
+                            else
+                                FillOtherLocalBranchMenu(menu, repo, lb, current, commit.IsMerged);
                             break;
                         case Models.DecoratorType.RemoteBranchHead:
                             var rb = repo.Branches.Find(x => !x.IsLocal && d.Name.Equals(x.FriendlyName, StringComparison.Ordinal));
