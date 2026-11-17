@@ -28,14 +28,30 @@ namespace SourceGit.Commands
             var lines = rs.StdOut.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
             var mismatched = new HashSet<string>();
             var remotes = new Dictionary<string, Models.Branch>();
+            var hasCurrent = false;
             foreach (var line in lines)
             {
                 var b = ParseLine(line, mismatched);
                 if (b != null)
                 {
                     branches.Add(b);
+                    hasCurrent |= b.IsCurrent;
                     if (!b.IsLocal)
                         remotes.Add(b.FullName, b);
+                }
+            }
+
+            // On case-insensitive file systems HEAD may point to `refs/heads/PC/foo` while the ref is stored
+            // as `refs/heads/pc/foo` (the folder already existed in another case). Git then marks no branch
+            // with `%(HEAD)`, so match the branch HEAD points to ignoring case.
+            if (!hasCurrent)
+            {
+                var headRef = await new QueryHeadRef(WorkingDirectory).GetResultAsync().ConfigureAwait(false);
+                if (headRef.StartsWith(PREFIX_LOCAL, StringComparison.Ordinal))
+                {
+                    var current = branches.Find(x => x.IsLocal && headRef.Equals(x.FullName, StringComparison.OrdinalIgnoreCase));
+                    if (current != null)
+                        current.IsCurrent = true;
                 }
             }
 
