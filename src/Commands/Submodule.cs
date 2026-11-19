@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,8 @@ namespace SourceGit.Commands
 
         public async Task<bool> UpdateAsync(List<string> modules, bool init, bool recursive, bool useRemote)
         {
+            await PrepareUpdateAsync(WorkingDirectory, string.Empty, modules, recursive, useRemote).ConfigureAwait(false);
+
             var builder = new StringBuilder();
             builder.Append("submodule update --progress");
 
@@ -82,6 +85,50 @@ namespace SourceGit.Commands
         {
             Args = $"rm -rf {module.Quoted()}";
             return await ExecAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
+        ///     `git submodule update` passes `--progress` only to `git clone`: a submodule that is cloned already is fetched
+        ///     and checked out quietly, so nothing tells how far the update of a heavy one is. Fetch and check out these
+        ///     submodules here with progress first, then `git submodule update` has nothing left to do for them.
+        ///     Failures are not reported here, because `git submodule update` runs the same steps again and reports them.
+        /// </summary>
+        private async Task PrepareUpdateAsync(string repo, string displayPrefix, List<string> modules, bool recursive, bool useRemote)
+        {
+            var submodules = await new QueryCheckoutSubmodules(repo, modules).GetResultAsync().ConfigureAwait(false);
+            foreach (var submodule in submodules)
+            {
+                if (CancellationToken.IsCancellationRequested)
+                    return;
+
+                // With `--remote` it always fetches, otherwise only a submodule that is not checked out yet needs it.
+                if (!useRemote && submodule.Status == Models.SubmoduleStatus.Normal)
+                    continue;
+
+                var fullPath = Path.GetFullPath(Path.Combine(repo, submodule.Path));
+                Log?.AppendLine($"Entering '{displayPrefix}{submodule.Path}'");
+
+                if (useRemote || !await new IsCommitSHA(fullPath, submodule.SHA).GetResultAsync().ConfigureAwait(false))
+                {
+                    await new Fetch(fullPath) { RaiseError = false }
+                        .Use(Log)
+                        .WithCancellation(CancellationToken)
+                        .ExecAsync()
+                        .ConfigureAwait(false);
+                }
+
+                // With `--remote` the submodule is updated to its remote branch instead of the recorded commit.
+                if (useRemote || CancellationToken.IsCancellationRequested)
+                    continue;
+
+                var succ = await new Checkout(fullPath) { RaiseError = false }
+                    .Use(Log)
+                    .CommitAsync(submodule.SHA, false)
+                    .ConfigureAwait(false);
+
+                if (succ && recursive)
+                    await PrepareUpdateAsync(fullPath, $"{displayPrefix}{submodule.Path}/", [], true, false).ConfigureAwait(false);
+            }
         }
     }
 }
