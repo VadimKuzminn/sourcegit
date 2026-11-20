@@ -1008,9 +1008,14 @@
   <x:String x:Key="Text.SHALinkCM.CopySHA" xml:space="preserve">Копировать SHA</x:String>
   <x:String x:Key="Text.SHALinkCM.NavigateTo" xml:space="preserve">Перейти</x:String>
   <x:String x:Key="Text.SSHKey" xml:space="preserve">Приватный ключ SSH:</x:String>
+  <x:String x:Key="Text.SSHKey.Browse" xml:space="preserve">Выбрать файл приватного ключа...</x:String>
+  <x:String x:Key="Text.SSHKey.Pick" xml:space="preserve">Выбрать в помощнике SSH-ключей...</x:String>
   <x:String x:Key="Text.SSHKey.Placeholder" xml:space="preserve">Путь хранения частного SSH-ключа</x:String>
   <x:String x:Key="Text.SSHKeyHelper" xml:space="preserve">Открыть помощника SSH-ключей</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CheckedKey" xml:space="preserve">Выбранный ключ:</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CheckedKey.None" xml:space="preserve">Не выбран (настройки SSH по умолчанию)</x:String>
   <x:String x:Key="Text.SSHKeyHelper.ConfirmDeletion" xml:space="preserve">Вы действительно хотите удалить следующие ключи?</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CopyPublicKey" xml:space="preserve">Копировать в буфер обмена</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Fingerprint" xml:space="preserve">Отпечаток</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Generator" xml:space="preserve">Создать SSH-ключ</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Generator.ConfirmPassphrase" xml:space="preserve">Подтвердить парольную фразу:</x:String>
@@ -1024,6 +1029,8 @@
   <x:String x:Key="Text.SSHKeyHelper.Generator.UsePassphrase" xml:space="preserve">Использовать парольную фразу для частного ключа</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Path" xml:space="preserve">Путь</x:String>
   <x:String x:Key="Text.SSHKeyHelper.PublicKey" xml:space="preserve">Открытый ключ</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.Tip1" xml:space="preserve">1. Выберите или создайте SSH-ключ, который будет идентифицировать ваш компьютер</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.Tip2" xml:space="preserve">2. Скопируйте открытый ключ и добавьте его в свой аккаунт на сайте git-хостинга</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Title" xml:space="preserve">Помощник SSH-ключа</x:String>
   <x:String x:Key="Text.Start" xml:space="preserve">ЗАПУСК</x:String>
   <x:String x:Key="Text.Stash" xml:space="preserve">Отложить</x:String>

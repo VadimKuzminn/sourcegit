@@ -1004,9 +1004,14 @@ Manually add a branch/tag history filter will disable this feature automatically
   <x:String x:Key="Text.SHALinkCM.CopySHA" xml:space="preserve">Copy SHA</x:String>
   <x:String x:Key="Text.SHALinkCM.NavigateTo" xml:space="preserve">Go to</x:String>
   <x:String x:Key="Text.SSHKey" xml:space="preserve">SSH Private Key:</x:String>
+  <x:String x:Key="Text.SSHKey.Browse" xml:space="preserve">Browse for private key file...</x:String>
+  <x:String x:Key="Text.SSHKey.Pick" xml:space="preserve">Choose from SSH Key Helper...</x:String>
   <x:String x:Key="Text.SSHKey.Placeholder" xml:space="preserve">Private SSH key store path</x:String>
   <x:String x:Key="Text.SSHKeyHelper" xml:space="preserve">Open SSH Key Helper</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CheckedKey" xml:space="preserve">Selected Key:</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CheckedKey.None" xml:space="preserve">None (use default SSH settings)</x:String>
   <x:String x:Key="Text.SSHKeyHelper.ConfirmDeletion" xml:space="preserve">Do you really want to delete the following keys?</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.CopyPublicKey" xml:space="preserve">Copy to clipboard</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Fingerprint" xml:space="preserve">Fingerprint</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Generator" xml:space="preserve">Generate SSH Key</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Generator.ConfirmPassphrase" xml:space="preserve">Confirm Passphrase:</x:String>
@@ -1020,6 +1025,8 @@ Manually add a branch/tag history filter will disable this feature automatically
   <x:String x:Key="Text.SSHKeyHelper.Generator.UsePassphrase" xml:space="preserve">Use passphrase for private key</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Path" xml:space="preserve">Path</x:String>
   <x:String x:Key="Text.SSHKeyHelper.PublicKey" xml:space="preserve">Public Key</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.Tip1" xml:space="preserve">1. Select or generate an SSH key that will identify your computer</x:String>
+  <x:String x:Key="Text.SSHKeyHelper.Tip2" xml:space="preserve">2. Copy the public key and add it to your account on the website of your git provider</x:String>
   <x:String x:Key="Text.SSHKeyHelper.Title" xml:space="preserve">SSH Key Helper</x:String>
   <x:String x:Key="Text.Start" xml:space="preserve">START</x:String>
   <x:String x:Key="Text.Stash" xml:space="preserve">Stash</x:String>

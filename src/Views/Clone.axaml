@@ -61,9 +61,14 @@
         </TextBox.InnerLeftContent>
 
         <TextBox.InnerRightContent>
-          <Button Classes="icon_button" Width="28" Height="28" Click="SelectSSHKey">
-            <Path Data="{StaticResource Icons.Folder.Open}" Fill="{DynamicResource Brush.FG1}"/>
-          </Button>
+          <StackPanel Orientation="Horizontal">
+            <Button Classes="icon_button" Width="28" Height="28" Click="PickSSHKey" ToolTip.Tip="{DynamicResource Text.SSHKey.Pick}">
+              <Path Width="14" Height="14" Data="{StaticResource Icons.Tool}" Fill="{DynamicResource Brush.FG1}"/>
+            </Button>
+            <Button Classes="icon_button" Width="28" Height="28" Click="SelectSSHKey" ToolTip.Tip="{DynamicResource Text.SSHKey.Browse}">
+              <Path Data="{StaticResource Icons.Folder.Open}" Fill="{DynamicResource Brush.FG1}"/>
+            </Button>
+          </StackPanel>
         </TextBox.InnerRightContent>
       </TextBox>
 
