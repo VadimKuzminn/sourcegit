@@ -1,4 +1,4 @@
-# Release of the valuce fork (Windows x64 and macOS Apple Silicon).
+# Release of the valuce fork (Windows x64, macOS Apple Silicon and Linux x64).
 #
 # How to publish a new version that installed copies pick up through "Update & Restart":
 #   1. Put the new version into the VERSION file, e.g. 2026.23.2 (third number = fork build).
@@ -6,18 +6,26 @@
 #        git tag v2026.23.2
 #        git push valuce v2026.23.2
 #   3. This workflow builds SourceGit for every runtime below, packs
-#      `sourcegit_<version>.win-x64.zip` and `sourcegit_<version>.osx-arm64.zip` (an ad-hoc
-#      signed SourceGit.app), and creates the GitHub release once all of them are built.
+#      `sourcegit_<version>.win-x64.zip`, `sourcegit_<version>.osx-arm64.zip` (an ad-hoc
+#      signed SourceGit.app) and `sourcegit_<version>.linux-x64.AppImage`, and creates the
+#      GitHub release once all of them are built.
 #      Release notes are the commit subjects since the previous v* tag.
+#
+# To check the build without releasing anything, push to the `release-dry-run` branch:
+#   git push valuce HEAD:release-dry-run
+# The packages are then attached to the workflow run as artifacts.
 #
 # The app checks https://api.github.com/repos/valuce/sourcegit/releases/latest
 # (see src/Models/SelfUpdater.cs), so drafts and pre-releases are not offered as updates.
-# The asset names matter: the app picks the one ending in `.<rid>.zip` for its platform.
+# The asset names matter: the app picks the one ending in `.<rid>.zip` (`.<rid>.AppImage`
+# on Linux) for its platform.
 name: Release (fork)
 on:
   push:
     tags:
       - 'v*.*.*'
+    branches:
+      - release-dry-run
 permissions:
   contents: write
 jobs:
@@ -33,7 +41,7 @@ jobs:
         id: version
         run: |
           version="$(tr -d '[:space:]' < VERSION)"
-          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+          if [ "$GITHUB_REF_TYPE" = tag ] && [ "v$version" != "$GITHUB_REF_NAME" ]; then
             echo "::error::VERSION file says '$version' but the tag is '$GITHUB_REF_NAME'. Update VERSION and tag again."
             exit 1
           fi
@@ -49,10 +57,22 @@ jobs:
             os: windows-2022
           - runtime: osx-arm64
             os: macos-latest
+          - runtime: linux-x64
+            os: ubuntu-latest
+            # An old glibc, so the AppImage runs on older distributions too.
+            container: ubuntu:20.04
+    container: ${{ matrix.container || '' }}
     env:
       VERSION: ${{ needs.version.outputs.version }}
       RUNTIME: ${{ matrix.runtime }}
     steps:
+      - name: Install build tools (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+          apt-get update
+          apt-get install -y curl git zip unzip libicu66 tzdata clang file desktop-file-utils
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
@@ -74,14 +94,22 @@ jobs:
       - name: Package (macOS)
         if: runner.os == 'macOS'
         run: bash build/scripts/package.osx-app.sh
+      - name: Package (Linux)
+        if: runner.os == 'Linux'
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: 1
+        run: bash build/scripts/package.linux-appimage.sh
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
           name: package.${{ matrix.runtime }}
-          path: build/sourcegit_*.zip
+          path: |
+            build/sourcegit_*.zip
+            build/sourcegit_*.AppImage
           if-no-files-found: error
   release:
     name: Create release
+    if: github.ref_type == 'tag'
     needs: [version, build]
     runs-on: ubuntu-latest
     steps:
@@ -110,4 +138,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ needs.version.outputs.version }}
-        run: gh release create "$GITHUB_REF_NAME" packages/*.zip --title "$VERSION" --notes-file notes.md
+        run: gh release create "$GITHUB_REF_NAME" packages/* --title "$VERSION" --notes-file notes.md
