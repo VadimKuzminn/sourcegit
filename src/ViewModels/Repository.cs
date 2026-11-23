@@ -1373,7 +1373,8 @@ namespace SourceGit.ViewModels
                             hasChanged = !exist.SHA.Equals(module.SHA, StringComparison.Ordinal) ||
                                          !exist.Branch.Equals(module.Branch, StringComparison.Ordinal) ||
                                          !exist.URL.Equals(module.URL, StringComparison.Ordinal) ||
-                                         exist.Status != module.Status;
+                                         exist.Status != module.Status ||
+                                         exist.IsActive != module.IsActive;
 
                             if (hasChanged)
                                 break;

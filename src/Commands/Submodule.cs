@@ -78,7 +78,21 @@ namespace SourceGit.Commands
         public async Task<bool> DeinitAsync(string module, bool force)
         {
             Args = force ? $"submodule deinit -f -- {module.Quoted()}" : $"submodule deinit -- {module.Quoted()}";
-            return await ExecAsync().ConfigureAwait(false);
+            if (!await ExecAsync().ConfigureAwait(false))
+                return false;
+
+            // `git submodule deinit` drops the config of the submodule, `submodule.<name>.active` included. If the pathspec
+            // in `submodule.active` (set by `git clone --recurse-submodules`) matches it, it is still active then, and the
+            // next `git submodule update` clones it again. Turn it off, so that updates skip it until it is initialized
+            // again (`git submodule init` turns it back on).
+            var active = await new QueryActiveSubmodules(WorkingDirectory, [module]).GetResultAsync().ConfigureAwait(false);
+            if (!active.TryGetValue(module, out var name))
+                return true;
+
+            return await new Config(WorkingDirectory)
+                .Use(Log)
+                .SetAsync($"submodule.{name.Quoted()}.active", "false")
+                .ConfigureAwait(false);
         }
 
         public async Task<bool> DeleteAsync(string module)

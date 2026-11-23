@@ -17,5 +17,11 @@
         public string Branch { get; set; } = string.Empty;
         public SubmoduleStatus Status { get; set; } = SubmoduleStatus.Normal;
         public bool IsDirty => Status > SubmoduleStatus.NotInited;
+
+        /// <summary>
+        ///     Whether `git submodule update` updates it without `--init`. Only one that is not cloned can be inactive, as
+        ///     `git submodule status` shows the inactive ones as not cloned.
+        /// </summary>
+        public bool IsActive { get; set; } = true;
     }
 }

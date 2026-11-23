@@ -239,7 +239,9 @@ namespace SourceGit.Views
                     var deinit = new MenuItem();
                     deinit.Header = App.Text("Submodule.Deinit");
                     deinit.Icon = this.CreateMenuIcon("Icons.Undo");
-                    deinit.IsEnabled = submodule.Status != Models.SubmoduleStatus.NotInited;
+                    // An active submodule that is not cloned is still updated, so it can be turned off to skip one that
+                    // cannot be cloned.
+                    deinit.IsEnabled = submodule.Status != Models.SubmoduleStatus.NotInited || submodule.IsActive;
                     deinit.Click += (_, ev) =>
                     {
                         if (repo.CanCreatePopup())
