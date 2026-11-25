@@ -1352,40 +1352,31 @@ namespace SourceGit.ViewModels
             // Querying the submodules is slow (git visits each of them) and cannot be interrupted. While files keep
             // changing (e.g. Unity importing assets) the watcher asks for it much faster than a query completes, so never
             // run more than one at a time: requests made in the meantime share a single query that starts right after
-            // the running one, which is enough to see every change made before it starts.
+            // the running one, which is enough to see every change made before it starts. The returned task completes
+            // with the query that serves this request, not with the ones requested after it.
+            Task task;
             lock (_submodulesRefreshLock)
             {
+                _pendingSubmodulesRefresh ??= new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                task = _pendingSubmodulesRefresh.Task;
+
                 if (_isRefreshingSubmodules)
-                {
-                    _queuedSubmodulesRefresh ??= new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-                    return _queuedSubmodulesRefresh.Task;
-                }
+                    return task;
 
                 _isRefreshingSubmodules = true;
             }
 
-            return Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
-                TaskCompletionSource queued = null;
                 while (true)
                 {
-                    try
-                    {
-                        await QueryAndApplySubmodulesAsync().ConfigureAwait(false);
-                    }
-                    catch
-                    {
-                        // Ignore exceptions, so that the requests waiting for this query are never left pending.
-                    }
-
-                    queued?.TrySetResult();
-
+                    TaskCompletionSource pending;
                     lock (_submodulesRefreshLock)
                     {
-                        queued = _queuedSubmodulesRefresh;
-                        _queuedSubmodulesRefresh = null;
+                        pending = _pendingSubmodulesRefresh;
+                        _pendingSubmodulesRefresh = null;
 
-                        if (queued == null)
+                        if (pending == null)
                         {
                             _isRefreshingSubmodules = false;
                             return;
@@ -1393,8 +1384,21 @@ namespace SourceGit.ViewModels
                     }
 
                     Interlocked.Exchange(ref _lastSubmodulesRefreshTicks, DateTime.Now.Ticks);
+
+                    try
+                    {
+                        await QueryAndApplySubmodulesAsync().ConfigureAwait(false);
+                        pending.TrySetResult();
+                    }
+                    catch (Exception e)
+                    {
+                        // Hand the error to the callers awaiting this query and keep serving the requests after it.
+                        pending.TrySetException(e);
+                    }
                 }
             });
+
+            return task;
         }
 
         private async Task QueryAndApplySubmodulesAsync()
@@ -2108,7 +2112,7 @@ namespace SourceGit.ViewModels
         private long _lastSubmodulesRefreshTicks = 0;
         private readonly object _submodulesRefreshLock = new object();
         private bool _isRefreshingSubmodules = false;
-        private TaskCompletionSource _queuedSubmodulesRefresh = null;
+        private TaskCompletionSource _pendingSubmodulesRefresh = null;
 
         private Models.Watcher _watcher = null;
         private Histories _histories = null;
