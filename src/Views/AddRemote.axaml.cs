@@ -14,6 +14,15 @@ namespace SourceGit.Views
             InitializeComponent();
         }
 
+        private async void PickSSHKey(object _, RoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            var picked = await SSHKeyHelper.PickAsync(this, TxtSshKey.Text);
+            if (picked != null)
+                TxtSshKey.Text = picked;
+        }
+
         private async void SelectSSHKey(object _, RoutedEventArgs e)
         {
             var toplevel = TopLevel.GetTopLevel(this);

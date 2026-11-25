@@ -29,6 +29,16 @@ namespace SourceGit.Commands
             Args = $"fetch --progress --verbose {remote.Name}";
         }
 
+        /// <summary>
+        ///     Fetches the default remote, as `git submodule update` does in a submodule.
+        /// </summary>
+        public Fetch(string repo)
+        {
+            WorkingDirectory = repo;
+            Context = repo;
+            Args = "fetch --progress";
+        }
+
         public Fetch(string repo, Models.Remote remote, Models.Branch remoteBranch, Models.Branch local)
         {
             WorkingDirectory = repo;

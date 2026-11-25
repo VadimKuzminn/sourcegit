@@ -62,6 +62,14 @@ namespace SourceGit.Commands
                 }
             }
 
+            var notCloned = submodules.FindAll(s => s.Status == Models.SubmoduleStatus.NotInited);
+            if (notCloned.Count > 0)
+            {
+                var active = await new QueryActiveSubmodules(WorkingDirectory, notCloned.ConvertAll(s => s.Path)).GetResultAsync().ConfigureAwait(false);
+                foreach (var module in notCloned)
+                    module.IsActive = active.ContainsKey(module.Path);
+            }
+
             if (submodules.Count > 0)
             {
                 Args = "config --file .gitmodules --list";

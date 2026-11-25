@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace SourceGit.Models
 {
     public record SSHKeyType(string Name, string Description, string Cmdline)
@@ -13,22 +15,37 @@ namespace SourceGit.Models
         ];
     }
 
-    public class SSHKeyPair
+    public class SSHKeyPair : ObservableObject
     {
         public string PrivateKeyPath { get; set; }
         public string PublicKeyPath { get; set; }
-        public string RawPublicKey { get; set; }
+        public string RawPublicKey { get; set; } = string.Empty;
         public string Fingerprint { get; set; } = "--- (invalid)";
         public string Name => Path.GetFileName(PrivateKeyPath);
+
+        public bool IsChecked
+        {
+            get => _isChecked;
+            set => SetProperty(ref _isChecked, value);
+        }
 
         public SSHKeyPair(string privateKey, string publicKey)
         {
             PrivateKeyPath = privateKey;
             PublicKeyPath = publicKey;
-            RawPublicKey = File.ReadAllText(publicKey);
+
+            try
+            {
+                if (File.Exists(publicKey))
+                    RawPublicKey = File.ReadAllText(publicKey).Trim();
+            }
+            catch
+            {
+                // Ignore errors and keep the public key empty
+            }
 
             var parts = RawPublicKey.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 3)
+            if (parts.Length < 2)
                 return;
 
             try
@@ -41,5 +58,7 @@ namespace SourceGit.Models
                 // Ignore errors and keep the fingerprint as invalid
             }
         }
+
+        private bool _isChecked = false;
     }
 }
